@@ -12,7 +12,14 @@ namespace GameServerExample2B
 
         private Dictionary<uint, Packet> ackTable;
 
-        public uint Malus;
+        private uint malus;
+
+        public uint Malus { get { return malus; } }
+
+        public void AddMalus(uint value)
+        {
+            malus += value;
+        }
 
         private GameServer server;
 
@@ -22,7 +29,7 @@ namespace GameServerExample2B
             this.endPoint = endPoint;
             sendQueue = new Queue<Packet>();
             ackTable = new Dictionary<uint, Packet>();
-            Malus = 0;
+            malus = 0;
         }
 
         public void Process()

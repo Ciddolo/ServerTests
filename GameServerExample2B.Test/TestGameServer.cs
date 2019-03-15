@@ -253,15 +253,15 @@ namespace GameServerExample2B.Test
             transport0.ClientEnqueue(move, "tester", 0);
             server0.SingleStep();
 
-            Assert.That(server0.GetGameObject(testerId).X, Is.EqualTo(10.0f));
-            Assert.That(server0.GetGameObject(testerId).Y, Is.EqualTo(20.0f));
-            Assert.That(server0.GetGameObject(testerId).Z, Is.EqualTo(30.0f));
+            Assert.That(server0.GetGameObject(testerId).X, Is.InRange(9.5f, 10.5f));
+            Assert.That(server0.GetGameObject(testerId).Y, Is.InRange(19.5f, 20.5f));
+            Assert.That(server0.GetGameObject(testerId).Z, Is.InRange(29.5f, 30.5f));
         }
 
         [Test]
         public void TestNumberOfServers()
         {
-            Assert.That(serversTable.Count, Is.EqualTo(3.0f));
+            Assert.That(serversTable.Count, Is.EqualTo(3));
         }
 
         [Test]
@@ -419,7 +419,6 @@ namespace GameServerExample2B.Test
         public void TestClientQuitException()
         {
             transport0.ClientEnqueue(quit, "tester", 0);
-            server0.SingleStep();
 
             Assert.That(() => server0.SingleStep(), Throws.Exception);
         }

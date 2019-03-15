@@ -5,6 +5,10 @@ using System.Collections.Generic;
 
 namespace GameServerExample2B
 {
+    public class GameServerException : Exception
+    {
+    }
+
     public class GameServer
     {
 
@@ -41,7 +45,10 @@ namespace GameServerExample2B
 
         public GameClient GetGameClient(EndPoint endPoint)
         {
-            return clientsTable[endPoint];
+            if (clientsTable.ContainsKey(endPoint))
+                return clientsTable[endPoint];
+            else
+                return null;
         }
 
         public List<GameClient> GetGameClients()
@@ -65,7 +72,7 @@ namespace GameServerExample2B
             if (clientsTable.ContainsKey(sender))
             {
                 GameClient badClient = clientsTable[sender];
-                badClient.Malus++;
+                badClient.AddMalus(1);
                 return;
             }
 
@@ -154,7 +161,7 @@ namespace GameServerExample2B
                 }
                 else
                 {
-                    client.Malus += 10;
+                    client.AddMalus(10);
                 }
             }
         }
